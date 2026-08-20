@@ -8,3 +8,5 @@ dist/
 *.egg-info/
 .lumen-presence/
 .DS_Store
+
+todo.md
