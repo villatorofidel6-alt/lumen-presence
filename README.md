@@ -1,0 +1,84 @@
+# Lumen Presence
+
+> **Editor de escritorio local para Discord Rich Presence personalizado.**
+
+[English documentation](README.en.md) · [Arquitectura](ARCHITECTURE.md) · [Guía de configuración](docs/CONFIGURAR_DISCORD.md) · [Uso responsable](docs/USO-RESPONSABLE.md)
+
+Lumen Presence permite configurar una actividad personalizada para la sesión local de Discord: detalles, estado, imágenes de actividad, tooltips, hasta dos botones y un temporizador. La aplicación usa IPC local con el cliente de escritorio de Discord; no depende de navegador, no sube datos y no solicita contraseña, token de usuario, token de bot ni `client_secret`.
+
+## Qué puede y no puede modificar
+
+| Elemento | Cómo se configura |
+|---|---|
+| Nombre de la actividad | Se establece con el nombre de tu propia aplicación en Discord Developer Portal. |
+| Detalles y estado | Se editan directamente en Lumen Presence. |
+| Imagen de actividad | Se referencia con claves de assets que cargues en tu aplicación de Discord. |
+| Botones | Lumen Presence permite hasta dos botones HTTPS con etiqueta y URL. |
+| Temporizador | Puede mostrar tiempo transcurrido desde que aplicaste el perfil. |
+| Avatar y perfil real | **No se modifican.** Lumen Presence solo controla la actividad temporal de la sesión local. |
+
+## Inicio rápido
+
+Primero crea una aplicación propia en el [Discord Developer Portal](https://discord.com/developers/applications). Define el nombre que quieres que Discord muestre como actividad, copia su **Application ID** y carga los assets que usarás como imágenes. La guía completa está en [docs/CONFIGURAR_DISCORD.md](docs/CONFIGURAR_DISCORD.md).
+
+Después instala desde el código:
+
+```bash
+git clone https://github.com/villatorofidel6-alt/lumen-presence.git
+cd lumen-presence
+python -m venv .venv
+```
+
+En Windows activa `.venv\Scripts\Activate.ps1`. En Linux o macOS activa `. .venv/bin/activate`. Luego ejecuta:
+
+```bash
+python -m pip install -e .
+lumen-presence gui
+```
+
+Guarda perfiles sin credenciales en tu equipo y aplícalos desde la interfaz. La CLI también permite enumerar perfiles locales:
+
+```bash
+lumen-presence profiles
+lumen-presence apply "Mi presencia"
+lumen-presence clear --application-id TU_APPLICATION_ID
+```
+
+## Requisitos
+
+Discord documenta que Rich Presence directa sin autenticación se comunica con un cliente de Discord en ejecución y requiere una aplicación registrada con un Application ID válido. [1] En Linux/macOS, el cliente RPC se localiza mediante sockets IPC locales, no por una llamada web. [2]
+
+| Requisito | Propósito |
+|---|---|
+| Discord Desktop abierto y con sesión iniciada | Proporciona el endpoint IPC local. |
+| Application ID propia | Identifica tu actividad y sus assets. |
+| Assets cargados en Discord | Permiten usar imágenes por clave dentro de la actividad. |
+| Python 3.11+ o instalador de Releases | Ejecuta la aplicación de escritorio. |
+
+## Límites y privacidad
+
+La presencia aparece públicamente en Discord cuando el usuario tiene la compartición de actividad activada. Discord recomienda usar cuentas de prueba durante desarrollo. [3] No uses el proyecto para suplantar una organización, una persona o un juego. Lumen Presence no incluye automatización de cuentas, modificación de avatar, scraping, lectura de mensajes, self-bots ni manejo de tokens.
+
+## Desarrollo y pruebas
+
+```bash
+python -m pip install -e ".[dev,build]"
+python -m pytest
+python -m compileall -q src tests
+```
+
+Las pruebas utilizan un cliente IPC simulado; no requieren Discord ni abren conexiones de red.
+
+## Créditos
+
+**Creador y fundador:** Lumen AI  
+**GitHub:** [@villatorofidel6-alt](https://github.com/villatorofidel6-alt)  
+**Discord:** `px1j`
+
+## Referencias
+
+[1] [Discord: Setting Rich Presence](https://docs.discord.com/developers/discord-social-sdk/development-guides/setting-rich-presence)
+
+[2] [Discord: RPC over IPC](https://docs.discord.com/developers/topics/rpc)
+
+[3] [Discord: Rich Presence](https://docs.discord.com/developers/platform/rich-presence)

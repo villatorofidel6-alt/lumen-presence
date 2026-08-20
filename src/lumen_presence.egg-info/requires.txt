@@ -1,0 +1,7 @@
+pypresence>=4.3.0
+
+[build]
+pyinstaller>=6.0
+
+[dev]
+pytest>=8.0

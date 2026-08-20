@@ -1,0 +1,2 @@
+[console_scripts]
+lumen-presence = lumen_presence.cli:main

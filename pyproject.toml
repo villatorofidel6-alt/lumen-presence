@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lumen-presence"
+version = "0.1.0"
+description = "Local desktop editor for Discord Rich Presence profiles"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Lumen AI / villatorofidel6-alt"}]
+maintainers = [{name = "Lumen AI / villatorofidel6-alt"}]
+keywords = ["discord", "rich-presence", "ipc", "desktop", "custom-rpc"]
+classifiers = ["Development Status :: 3 - Alpha", "Environment :: Win32 (MS Windows)", "Environment :: X11 Applications", "License :: OSI Approved :: MIT License", "Programming Language :: Python :: 3"]
+dependencies = ["pypresence>=4.3.0"]
+
+[project.urls]
+Homepage = "https://github.com/villatorofidel6-alt/lumen-presence"
+Repository = "https://github.com/villatorofidel6-alt/lumen-presence"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+build = ["pyinstaller>=6.0"]
+
+[project.scripts]
+lumen-presence = "lumen_presence.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.lumen_presence]
+creator = "Lumen AI"
+github = "villatorofidel6-alt"
+discord = "px1j"
